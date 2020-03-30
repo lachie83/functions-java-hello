@@ -4,10 +4,10 @@
 # Uncomment out the sections below to take full advantage of what Porter can do!
 
 name: azure-functions-java-hello
-version: 0.5.2
+version: 0.5.3
 description: "A dev bundle that installs and uninstalls the Azure functions environment in Azure..."
-invocationImage: lachlanevenson/functions-java-hello-install:v0.5.2
-tag: lachlanevenson/functions-java-hello:v0.5.2
+invocationImage: lachlanevenson/functions-java-hello-install:v0.5.3
+tag: lachlanevenson/functions-java-hello:v0.5.3
 
 # Uncomment out the line below to use a template Dockerfile for your invocation image
 dockerfile: Dockerfile.tmpl
@@ -45,6 +45,12 @@ parameters:
     type: string
     applyTo:
       - functions.java.hello.test
+  - name: region
+    description: "The region in which to create your functions."
+    default: "southcentralus"
+    type: string
+    applyTo:
+      - install
 
 customActions:
   functions.java.hello.test:
@@ -84,7 +90,7 @@ install:
         - "create" 
       flags:
         name: "{{ bundle.parameters.resource_group}}"
-        location: "westus2"
+        location: "{{ bundle.parameters.region}}"
   - az:
       description: "Creating the storage account...."
       arguments:
@@ -93,7 +99,7 @@ install:
         - "create"
       flags:
         name: "{{ bundle.parameters.function_name}}"
-        location: "westus2"
+        location: "{{ bundle.parameters.region}}"
         resource-group: "{{ bundle.parameters.resource_group}}"
         sku: "Standard_LRS"
   - az: 
@@ -106,7 +112,7 @@ install:
         resource-group: "{{ bundle.parameters.resource_group}}"
         storage-account: "{{ bundle.parameters.function_name}}"
         functions-version: 3
-        consumption-plan-location: westus2
+        consumption-plan-location: "{{ bundle.parameters.region}}"
       outputs: 
         - name: "HOSTNAME"
           jsonPath: 'defaultHostName'
