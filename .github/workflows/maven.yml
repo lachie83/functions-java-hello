@@ -38,6 +38,6 @@ jobs:
         PATH=$PATH:~/.porter
         porter mixins install jq --url https://github.com/squillace/porter-jq/releases/download --version v0.1.0
         porter build
-        porter publish
+        porter publish --debug
 
 
