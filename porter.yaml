@@ -91,7 +91,7 @@ install:
         - "create" 
       flags:
         name: "{{ bundle.parameters.resource_group}}"
-        location: "{{ bundle.parameters.region}"
+        location: "{{ bundle.parameters.region}}"
   - az:
       description: "Creating the storage account...."
       arguments:
@@ -100,7 +100,7 @@ install:
         - "create"
       flags:
         name: "{{ bundle.parameters.function_name}}"
-        location: "{{ bundle.parameters.region}"
+        location: "{{ bundle.parameters.region}}"
         resource-group: "{{ bundle.parameters.resource_group}}"
         sku: "Standard_LRS"
   - az: 
@@ -113,7 +113,7 @@ install:
         resource-group: "{{ bundle.parameters.resource_group}}"
         storage-account: "{{ bundle.parameters.function_name}}"
         functions-version: 3
-        consumption-plan-location: {{ bundle.parameters.region}
+        consumption-plan-location: {{ bundle.parameters.region}}
       outputs: 
         - name: "HOSTNAME"
           jsonPath: 'defaultHostName'
