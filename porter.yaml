@@ -112,7 +112,7 @@ install:
         resource-group: "{{ bundle.parameters.resource_group}}"
         storage-account: "{{ bundle.parameters.function_name}}"
         functions-version: 3
-        consumption-plan-location: {{ bundle.parameters.region}}
+        consumption-plan-location: "{{ bundle.parameters.region}}"
       outputs: 
         - name: "HOSTNAME"
           jsonPath: 'defaultHostName'
