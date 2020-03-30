@@ -45,6 +45,13 @@ parameters:
     type: string
     applyTo:
       - functions.java.hello.test
+  - name: region
+    description: "The region in which to create your functions."
+    default: "westus2"
+    type: string
+    applyTo:
+      - install
+      - uninstall
 
 customActions:
   functions.java.hello.test:
@@ -84,7 +91,7 @@ install:
         - "create" 
       flags:
         name: "{{ bundle.parameters.resource_group}}"
-        location: "westus2"
+        location: "{{ bundle.parameters.region}"
   - az:
       description: "Creating the storage account...."
       arguments:
@@ -93,7 +100,7 @@ install:
         - "create"
       flags:
         name: "{{ bundle.parameters.function_name}}"
-        location: "westus2"
+        location: "{{ bundle.parameters.region}"
         resource-group: "{{ bundle.parameters.resource_group}}"
         sku: "Standard_LRS"
   - az: 
@@ -106,7 +113,7 @@ install:
         resource-group: "{{ bundle.parameters.resource_group}}"
         storage-account: "{{ bundle.parameters.function_name}}"
         functions-version: 3
-        consumption-plan-location: westus2
+        consumption-plan-location: {{ bundle.parameters.region}
       outputs: 
         - name: "HOSTNAME"
           jsonPath: 'defaultHostName'
