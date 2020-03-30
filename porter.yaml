@@ -47,7 +47,7 @@ parameters:
       - functions.java.hello.test
   - name: region
     description: "The region in which to create your functions."
-    default: "westus2"
+    default: "southcentralus"
     type: string
     applyTo:
       - install
